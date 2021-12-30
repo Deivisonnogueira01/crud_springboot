@@ -2,6 +2,8 @@ package com.crudweb.Deivison.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.crudweb.Deivison.entities.enuns.OrderStatus;
@@ -31,11 +34,15 @@ private Integer orderStatus;
 @ManyToOne
 @JoinColumn(name = "client_id")
 private User client;
+
+
+@OneToMany(mappedBy = "id.order")
+private Set<OrderItem> items = new HashSet<>();
 	
 	public Order() {
 	}
 
-	public Order(Long id, Instant moment, OrderStatus orderStatus   ,User client) {
+	public Order(Long id, Instant moment, OrderStatus orderStatus,User client) {
 		super();
 		this.id = id;
 		this.moment = moment;
@@ -78,6 +85,10 @@ private User client;
 	public void setClient(User client) {
 		this.client = client;
 	}
+	
+	public Set<OrderItem> getItems(){
+		return items; //item
+	}
 
 	@Override
 	public int hashCode() {
@@ -104,6 +115,6 @@ private User client;
 		return true;
 	}
 	
-	
+	// JAVA EE o que vale é o metodo Get
 	
 }
