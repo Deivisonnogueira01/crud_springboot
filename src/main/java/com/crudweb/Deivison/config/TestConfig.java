@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.crudweb.Deivison.entities.Category;
 import com.crudweb.Deivison.entities.Order;
 import com.crudweb.Deivison.entities.User;
 import com.crudweb.Deivison.entities.enuns.OrderStatus;
+import com.crudweb.Deivison.repositories.CategoryRepository;
 import com.crudweb.Deivison.repositories.OrderRepository;
 import com.crudweb.Deivison.repositories.UserRepository;
 
@@ -23,10 +25,20 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
-		                   //null pq o banco gera automaticamente
+		
+		Category cat1 = new Category(null, "Electronics"); 
+		Category cat2 = new Category(null, "Books"); 
+		Category cat3 = new Category(null, "Computers"); 
+		
+		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
+		
+		//null pq o banco gera automaticamente
 		User u1 = new User(null,"Caio", "caio@gmail.com","758000", "123456");
 		User u2 = new User(null,"Mario", "ms.12@live.com", "157480", "147000");
 		
